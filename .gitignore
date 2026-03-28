@@ -1,0 +1,15 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# Dataset (very large)
+data/raw/
+data/dataset/
+
+# Model files (optional but recommended)
+models/*.pth
+
+# OS files
+.DS_Store
+Thumbs.db

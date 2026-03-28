@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Tomato Leaf Disease Classifier</title>
+    <link rel="stylesheet" href="{{ url_for('static', domain=None, filename='styles.css') }}" />
+  </head>
+  <body>
+    <div class="page">
+      <header class="header">
+        <h1>Tomato Leaf Disease Classifier</h1>
+        <p>Upload a real-world tomato leaf image to predict its disease.</p>
+      </header>
+
+      <main class="content">
+        <section class="card">
+          <form method="POST" enctype="multipart/form-data" class="upload-form">
+            <label class="file-input">
+              <span>Select image</span>
+              <input type="file" name="image" accept="image/*" required />
+            </label>
+            <button type="submit">Classify disease</button>
+          </form>
+
+          {% if error %}
+          <div class="alert alert-error">
+            {{ error }}
+          </div>
+          {% endif %}
+
+          {% if prediction %}
+          <div class="result">
+            <h2>Prediction</h2>
+            {% if uploaded_image_url %}
+            <div class="preview-wrap">
+              <img class="preview-image" src="{{ uploaded_image_url }}" alt="Uploaded tomato leaf image" />
+            </div>
+            {% endif %}
+            <p class="result-label">{{ prediction }}</p>
+            {% if probability is not none %}
+            <p class="result-prob">
+              Confidence:
+              <strong>{{ '%.1f' % (probability * 100) }}%</strong>
+            </p>
+            {% endif %}
+            <p class="hint">
+              This model is trained on real field images (Mendeley tomato leaf diseases dataset).
+            </p>
+          </div>
+          {% endif %}
+        </section>
+      </main>
+
+      <footer class="footer">
+        <span>Tomato Leaf Disease Classifier &middot; PyTorch + Flask</span>
+      </footer>
+    </div>
+  </body>
+</html>
+
